@@ -1,0 +1,4 @@
+{
+    "svelte.language-server.debug": false,
+    "svelte.enable-ts-plugin": true
+}

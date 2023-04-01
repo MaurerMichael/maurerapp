@@ -1,6 +1,8 @@
-<script>
+<script lang="ts">
     import '../app.postcss';
+    import type { PageData } from './$types';
     import {
+        Avatar,
         DarkMode,
         Footer,
         FooterCopyright,
@@ -10,6 +12,12 @@
         NavBrand,
         NavHamburger, NavLi, NavUl
     } from "flowbite-svelte";
+    import AuthModal from '$lib/components/authentication/auth.modal.svelte'
+
+    export let data: PageData;
+
+    let showLogin = false;
+    let modalTyp = 'login'
 </script>
 
 <Navbar let:hidden let:toggle>
@@ -23,7 +31,16 @@
       Flowbite
     </span>
     </NavBrand>
-    <NavHamburger on:click={toggle}/>
+    <NavUl {hidden}>
+        {#if !data.session}
+            <NavLi on:click={() => { showLogin = true; modalTyp = 'login' }}>Signin</NavLi>
+            <NavLi on:click={() => { showLogin = true; modalTyp = 'register' }}>Register</NavLi>
+        {/if}
+    </NavUl>
+    {#if data.session}
+        <Avatar id="avatar-menu">MM</Avatar>
+        <NavHamburger on:click={toggle} class1="w-full md:flex md:w-auto md:order-1" />
+    {/if}
     <NavUl {hidden}>
         <NavLi href="/" active={true}>Home</NavLi>
         <NavLi href="/about">About</NavLi>
@@ -43,3 +60,5 @@
         <FooterLink href="/">Contact</FooterLink>
     </FooterLinkGroup>
 </Footer>
+
+<AuthModal bind:authModal={showLogin} bind:modalTyp={modalTyp}></AuthModal>
