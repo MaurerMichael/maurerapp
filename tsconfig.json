@@ -3,13 +3,17 @@
 	"compilerOptions": {
 		"baseUrl": ".",
         "paths": {
-            "src/*": [
-                "src/*"
-            ],
+			"src": [
+				"src"
+			],
+			"src/*": [
+				"src/*"
+			],
+			"$lib":["./src/lib"],
 			"$lib/*": [
 				"src/lib/*"
 			]
-        },
+		},
 		"allowJs": true,
 		"checkJs": true,
 		"esModuleInterop": true,
